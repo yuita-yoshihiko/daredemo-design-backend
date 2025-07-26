@@ -1,0 +1,15 @@
+services:
+  postgrestest:
+    image: postgres:17-alpine
+    environment:
+      - POSTGRES_USER=test
+      - POSTGRES_DB=test
+      - POSTGRES_PASSWORD=test
+    ports:
+      - 5438:5432
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "test"]
+      interval: 1s
+      timeout: 10s
+      retries: 5
+      start_period: 10s
