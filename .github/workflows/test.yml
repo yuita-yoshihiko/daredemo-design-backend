@@ -1,0 +1,36 @@
+name: test
+on:
+  push:
+    branches:
+      - main
+      - develop
+  pull_request:
+    branches:
+      - "**"
+jobs:
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v4
+      - name: Set up Go
+        id: setup-go
+        uses: actions/setup-go@v5
+        with:
+          go-version-file: go.mod
+      - name: Install dependencies
+        run: go mod download
+      - name: Build
+        run: go build -v ./...
+      - name: Set up databases
+        run: |
+          docker compose -f docker-compose.testdb.yml up -d --wait
+      - name: Test with the Go CLI
+        run: go test -race -cover -coverprofile=coverage.out -v ./...
+      - name: Create coverage.html
+        run: go tool cover -html=coverage.out -o coverage.html
+      - uses: actions/upload-artifact@v4
+        with:
+          name: coverage.html
+          path: coverage.html
