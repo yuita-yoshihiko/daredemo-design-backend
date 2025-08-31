@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Check out code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
       - name: Set up Go
         id: setup-go
         uses: actions/setup-go@v5
@@ -26,6 +26,9 @@ jobs:
       - name: Set up databases
         run: |
           docker compose -f docker-compose.testdb.yml up -d --wait
+      - name: migration
+        run: |
+          go tool sql-migrate up --env='ci'
       - name: Test with the Go CLI
         run: go test -race -cover -coverprofile=coverage.out -v ./...
       - name: Create coverage.html

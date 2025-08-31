@@ -6,12 +6,12 @@ local:
 
 test:
   dialect: postgres
-  datasource: host=host.docker.internal dbname=test user=test password=test port=5438 sslmode=disable
+  datasource: host=host.docker.internal dbname=test user=test password=test port=5439 sslmode=disable
   dir: infrastructure/db/migrations
   table: gorp_migrations
 
 ci:
   dialect: postgres
-  datasource: host=localhost dbname=test user=test password=test port=5438 sslmode=disable
+  datasource: host=localhost dbname=test user=test password=test port=5439 sslmode=disable
   dir: infrastructure/db/migrations
   table: gorp_migrations
