@@ -22,8 +22,8 @@ migrate/down:
 	go tool sql-migrate down --env="local"
 
 xo:
-	rm -f domain/models/*.xo.go
-	go tool xo schema --src xo_tpl -o models postgres://postgres:password@db:5438/daredemo-design_local?sslmode=disable \
+	rm -f models/*.xo.go
+	go tool dbtpl schema --src dbtpl -o models postgres://postgres:password@localhost:5438/daredemo-design_local?sslmode=disable \
 	--exclude=gorp_migrations
 
 # ローカルDB接続
