@@ -1,0 +1,17 @@
+local:
+  dialect: postgres
+  datasource: host=localhost dbname=daredemo-design_local user=postgres password=password port=5438 sslmode=disable
+  dir: infrastructure/db/migrations
+  table: gorp_migrations
+
+test:
+  dialect: postgres
+  datasource: host=host.docker.internal dbname=test user=test password=test port=5438 sslmode=disable
+  dir: infrastructure/db/migrations
+  table: gorp_migrations
+
+ci:
+  dialect: postgres
+  datasource: host=localhost dbname=test user=test password=test port=5438 sslmode=disable
+  dir: infrastructure/db/migrations
+  table: gorp_migrations
