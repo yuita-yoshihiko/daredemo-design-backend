@@ -43,6 +43,9 @@ psql:
 output-db:
 	${RUN} sh -c "go run internal/skeleton/database/main.go"
 
+output-db-test:
+	${RUN} sh -c "go run internal/skeleton/databasetest/main.go"
+
 output-rp:
 	${RUN} sh -c "go run internal/skeleton/repository/main.go"
 
@@ -51,5 +54,6 @@ output-uc:
 
 output-all-skeleton:
 	make output-db
+	make output-db-test
 	make output-rp
 	make output-uc
