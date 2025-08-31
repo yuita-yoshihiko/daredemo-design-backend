@@ -5,6 +5,7 @@ go 1.24.5
 require (
 	github.com/caarlos0/env/v11 v11.3.1
 	github.com/go-chi/chi/v5 v5.2.2
+	github.com/iancoleman/strcase v0.3.0
 	github.com/jmoiron/sqlx v1.3.5
 	github.com/joho/godotenv v1.5.1
 	github.com/kenshaw/inflector v0.3.0

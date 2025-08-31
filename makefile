@@ -29,3 +29,18 @@ xo:
 # ローカルDB接続
 psql:
 	docker compose exec db psql -U postgres -d daredemo-design_local
+
+# コード自動生成関連
+output-db:
+	${RUN} sh -c "go run internal/skeleton/database/main.go"
+
+output-rp:
+	${RUN} sh -c "go run internal/skeleton/repository/main.go"
+
+output-uc:
+	${RUN} sh -c "go run internal/skeleton/usecase/main.go"
+
+output-all-skeleton:
+	make output-db
+	make output-rp
+	make output-uc
