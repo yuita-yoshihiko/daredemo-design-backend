@@ -1,7 +1,6 @@
 package database_test
 
 import (
-	"context"
 	"testing"
 	"time"
 
@@ -15,7 +14,6 @@ func Test_DesignTip_Fetch(t *testing.T) {
 	data := testutils.LoadFixture(t, "testfixtures/design_tips/fetch")
 	dbUtils := db.NewDBUtil(data)
 	r := database.NewDesignTipRepository(dbUtils)
-	ctx := context.Background()
 
 	type args struct {
 		id int64
@@ -45,7 +43,7 @@ func Test_DesignTip_Fetch(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			got, err := r.Fetch(ctx, tt.args.id)
+			got, err := r.Fetch(t.Context(), tt.args.id)
 			if err != nil {
 				t.Errorf("error = %v", err)
 			}
