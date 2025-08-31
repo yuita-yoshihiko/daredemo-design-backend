@@ -51,3 +51,47 @@ func Test_DesignTip_Fetch(t *testing.T) {
 		})
 	}
 }
+
+func Test_DesignTip_Create(t *testing.T) {
+	data := testutils.LoadFixture(t, "testfixtures/design_tips/create")
+	dbUtils := db.NewDBUtil(data)
+	r := database.NewDesignTipRepository(dbUtils)
+
+	tests := []struct {
+		name  string
+		input *models.DesignTip
+		want  *models.DesignTip
+	}{
+		{
+			name: "正常にDesignTipのデータが作成できる",
+			input: &models.DesignTip{
+				Title:    "テストタイトル",
+				Guidance: "テストガイダンス",
+				URL:      "https://test.com",
+				Media:    "book",
+			},
+			want: &models.DesignTip{
+				Title:    "テストタイトル",
+				Guidance: "テストガイダンス",
+				URL:      "https://test.com",
+				Media:    "book",
+			},
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			id, err := r.Create(t.Context(), tt.input)
+			if err != nil {
+				t.Errorf("error = %v", err)
+			}
+			got, err := r.Fetch(t.Context(), id)
+			if err != nil {
+				t.Errorf("error = %v", err)
+			}
+			opt1 := testutils.DefaultIgnoreFieldsOptions(models.DesignTip{})
+			opt2 := testutils.GenerateIgnoreUnexportedTypesOptions(models.DesignTip{})
+			testutils.AssertResponseWithOptions(t, got, tt.want, opt1, opt2)
+		})
+	}
+}

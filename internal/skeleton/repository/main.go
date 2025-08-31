@@ -20,7 +20,6 @@ import (
 type {{ .Upper }}Repository interface {
 	Fetch(context.Context, int64) (*models.{{ .Upper }}, error)
 	Create(context.Context, *models.{{ .Upper }}) error
-	Update(context.Context, *models.{{ .Upper }}) error
 }
 
 `

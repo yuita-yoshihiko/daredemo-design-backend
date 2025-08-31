@@ -42,12 +42,6 @@ func (r *{{ .Lower }}RepositoryImpl) Create(ctx context.Context, m *models.{{ .U
 	return r.db.Error(err)
 }
 
-func (r *{{ .Lower }}RepositoryImpl) Update(ctx context.Context, m *models.{{ .Upper }}) error {
-	const query = "UPDATE {{ .Snake }}s SET name = $1, email = $2 WHERE id = $3"
-	_, err := r.db.ConnectionFromCtx(ctx).NamedExecContext(ctx, query, m)
-	return r.db.Error(err)
-}
-
 `
 
 func main() {

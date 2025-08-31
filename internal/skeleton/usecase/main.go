@@ -22,7 +22,6 @@ import (
 type {{ .Upper }}UseCase interface {
 	Fetch(context.Context, int64) (*graphql.{{ .Upper }}, error)
 	Create(context.Context, graphql.{{ .Upper }}CreateInput) (*graphql.{{ .Upper }}, error)
-	Update(context.Context, graphql.{{ .Upper }}UpdateInput) (*graphql.{{ .Upper }}, error)
 }
 
 type {{ .Lower }}UseCaseImpl struct {
@@ -54,17 +53,6 @@ func (u *{{ .Lower }}UseCaseImpl) Create(ctx context.Context, input graphql.{{ .
 		return nil, err
 	}
 	if err := u.repo.Create(ctx, m); err != nil {
-		return nil, err
-	}
-	return u.Fetch(ctx, m.ID)
-}
-
-func (u *{{ .Lower }}UseCaseImpl) Update(ctx context.Context, input graphql.{{ .Upper }}UpdateInput) (*graphql.{{ .Upper }}, error) {
-	m, err := u.converter.To{{ .Upper }}ModelForUpdate(input)
-	if err != nil {
-		return nil, err
-	}
-	if err := u.repo.Update(ctx, m); err != nil {
 		return nil, err
 	}
 	return u.Fetch(ctx, m.ID)
