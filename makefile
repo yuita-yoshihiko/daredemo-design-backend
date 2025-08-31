@@ -26,6 +26,15 @@ xo:
 	go tool dbtpl schema --src dbtpl -o models postgres://postgres:password@localhost:5438/daredemo-design_local?sslmode=disable \
 	--exclude=gorp_migrations
 
+# テスト用DBコンテナ立ち上げ
+test-db-up:
+	docker compose -f docker-compose.testdb.yml up --renew-anon-volumes -d --wait
+	${RUN} sh -c "go tool sql-migrate up --env='test'"
+
+# テスト用DBコンテナ落とす
+test-db-down:
+	docker compose -f docker-compose.testdb.yml down --volumes
+
 # ローカルDB接続
 psql:
 	docker compose exec db psql -U postgres -d daredemo-design_local
