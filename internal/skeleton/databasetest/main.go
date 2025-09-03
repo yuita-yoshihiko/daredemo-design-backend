@@ -230,15 +230,25 @@ func ensureFixture(methodSnake, entitySnake string) error {
 func collectBasenames(root string) map[string]struct{} {
 	out := make(map[string]struct{})
 	err := filepath.WalkDir(root, func(path string, d fs.DirEntry, err error) error {
-		if err != nil { return err }
-		if d.IsDir() { return nil }
-		if strings.ToLower(filepath.Ext(d.Name())) != ".go" { return nil }
-		if strings.HasSuffix(d.Name(), "_test.go") { return nil }
+		if err != nil {
+			return err
+		}
+		if d.IsDir() {
+			return nil
+		}
+		if strings.ToLower(filepath.Ext(d.Name())) != ".go" {
+			return nil
+		}
+		if strings.HasSuffix(d.Name(), "_test.go") {
+			return nil
+		}
 		base := strings.TrimSuffix(d.Name(), filepath.Ext(d.Name()))
 		out[base] = struct{}{}
 		return nil
 	})
-	if err != nil { log.Fatal(err) }
+	if err != nil {
+		log.Fatal(err)
+	}
 	return out
 }
 
