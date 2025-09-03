@@ -129,7 +129,7 @@ func Test_{{ .Upper }}_{{ .Method }}(t *testing.T) {
 				}
 
 				// フィクスチャも作成
-				if err := ensureFixture(data.MethodSnake, data.Name.Snake()); err != nil {
+				if err := ensureFixture(data.MethodSnake, data.Snake()); err != nil {
 					log.Fatalf("ensure fixture failed: %v", err)
 				}
 
