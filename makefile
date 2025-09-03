@@ -54,6 +54,5 @@ output-uc:
 
 output-all-skeleton:
 	make output-db
-	make output-db-test
 	make output-rp
 	make output-uc

@@ -4,6 +4,7 @@ go 1.24.5
 
 require (
 	github.com/caarlos0/env/v11 v11.3.1
+	github.com/gertd/go-pluralize v0.2.1
 	github.com/go-chi/chi/v5 v5.2.2
 	github.com/go-testfixtures/testfixtures/v3 v3.18.0
 	github.com/google/go-cmp v0.7.0
