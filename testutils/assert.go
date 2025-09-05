@@ -23,14 +23,9 @@ func AssertError(t *testing.T, err error, want error) {
 
 // xo で自動生成したmodelの非公開フィールドを無視して比較しないといけない
 // 使用例：testutils.AssertResponse(t, got, tt.want, models.Group{})
-func AssertResponse(t *testing.T, got, want any, ignoreUnexportedTypes ...any) {
+func AssertResponse(t *testing.T, got, want any) {
 	t.Helper()
-	var diff string
-	if len(ignoreUnexportedTypes) > 0 {
-		diff = cmp.Diff(got, want, cmpopts.IgnoreUnexported(ignoreUnexportedTypes[0]))
-	} else {
-		diff = cmp.Diff(got, want)
-	}
+	diff := cmp.Diff(got, want)
 	if diff != "" {
 		t.Errorf("Returned value is not want.\nDiff: \n%s", diff)
 	}
