@@ -8,4 +8,5 @@ import (
 
 type DesignTipRepository interface {
 	FetchWithCategories(context.Context, int64) (*custom.DesignTipWithCategories, error)
+	FetchAllWithCategories(context.Context) ([]*custom.DesignTipWithCategories, error)
 }
