@@ -12,6 +12,7 @@ type DesignTipOutput struct {
 
 type DesignTipConverter interface {
 	ToDesignTipOutput(*custom.DesignTipWithCategories) *DesignTipOutput
+	ToDesignTipOutputs([]*custom.DesignTipWithCategories) []*DesignTipOutput
 }
 
 type designTipConverterImpl struct {
@@ -37,4 +38,12 @@ func (c *designTipConverterImpl) ToDesignTipOutput(input *custom.DesignTipWithCa
 			return categories
 		}(),
 	}
+}
+
+func (c *designTipConverterImpl) ToDesignTipOutputs(inputs []*custom.DesignTipWithCategories) []*DesignTipOutput {
+	outputs := make([]*DesignTipOutput, len(inputs))
+	for i, input := range inputs {
+		outputs[i] = c.ToDesignTipOutput(input)
+	}
+	return outputs
 }

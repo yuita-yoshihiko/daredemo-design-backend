@@ -9,6 +9,7 @@ import (
 
 type DesignTipUseCase interface {
 	FetchWithCategories(context.Context, int64) (*converter.DesignTipOutput, error)
+	FetchAllWithCategories(context.Context) ([]*converter.DesignTipOutput, error)
 }
 
 type designTipUseCaseImpl struct {
@@ -32,4 +33,12 @@ func (u *designTipUseCaseImpl) FetchWithCategories(ctx context.Context, id int64
 		return nil, err
 	}
 	return u.converter.ToDesignTipOutput(m), nil
+}
+
+func (u *designTipUseCaseImpl) FetchAllWithCategories(ctx context.Context) ([]*converter.DesignTipOutput, error) {
+	ms, err := u.repo.FetchAllWithCategories(ctx)
+	if err != nil {
+		return nil, err
+	}
+	return u.converter.ToDesignTipOutputs(ms), nil
 }
