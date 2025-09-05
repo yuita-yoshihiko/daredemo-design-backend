@@ -49,4 +49,5 @@ func setupDesignTipRoutes(r chi.Router, dbUtil db.DBUtils) {
 	handler := api.NewDesignTipApi(formUseCase)
 
 	r.Get("/design_tips/{id}", handler.FetchWithCategories)
+	r.Get("/design_tips", handler.FetchAllWithCategories)
 }

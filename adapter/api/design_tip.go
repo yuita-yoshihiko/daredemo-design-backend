@@ -33,3 +33,13 @@ func (a *DesignTipApi) FetchWithCategories(w http.ResponseWriter, r *http.Reques
 	}
 	WriteJSON(w, http.StatusOK, u)
 }
+
+func (a *DesignTipApi) FetchAllWithCategories(w http.ResponseWriter, r *http.Request) {
+	us, err := a.uc.FetchAllWithCategories(r.Context())
+	if err != nil {
+		slog.ErrorContext(r.Context(), "Failed to fetch design_tips", "error", err.Error())
+		WriteJSON(w, http.StatusInternalServerError, ErrFailedToFetch)
+		return
+	}
+	WriteJSON(w, http.StatusOK, us)
+}
