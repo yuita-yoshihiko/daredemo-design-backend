@@ -32,6 +32,7 @@ func NewRouter() *chi.Mux {
 		}
 		dbUtil := db.NewDBUtil(dbInstanse)
 		setupDesignTipRoutes(r, dbUtil)
+		setupCategoryRoutes(r, dbUtil)
 	})
 	setupHealthRoutes(r)
 
@@ -52,4 +53,14 @@ func setupDesignTipRoutes(r chi.Router, dbUtil db.DBUtils) {
 
 	r.Get("/design_tips/{id}", handler.FetchWithCategories)
 	r.Get("/design_tips", handler.FetchAllWithCategories)
+}
+
+func setupCategoryRoutes(r chi.Router, dbUtil db.DBUtils) {
+	categoryUseCase := usecase.NewCategoryUseCase(
+		database.NewCategoryRepository(dbUtil),
+		converter.NewCategoryConverter(),
+	)
+	handler := api.NewCategoryApi(categoryUseCase)
+
+	r.Get("/categories", handler.FetchAll)
 }
