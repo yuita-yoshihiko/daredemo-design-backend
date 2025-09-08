@@ -7,6 +7,7 @@ import (
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
 	"github.com/yuita-yoshihiko/daredemo-design-backend/adapter/api"
+	"github.com/yuita-yoshihiko/daredemo-design-backend/adapter/api/middlewares"
 	"github.com/yuita-yoshihiko/daredemo-design-backend/adapter/database"
 	"github.com/yuita-yoshihiko/daredemo-design-backend/infrastructure/db"
 	"github.com/yuita-yoshihiko/daredemo-design-backend/usecase"
@@ -19,6 +20,7 @@ func NewRouter() *chi.Mux {
 
 	r := chi.NewRouter()
 
+	r.Use(middlewares.NewCorsMiddleware())
 	r.Group(func(r chi.Router) {
 		// ミドルウェア
 		r.Use(middleware.Logger)
